@@ -224,9 +224,9 @@ __setup("enforcing=", enforcing_setup);
 
 #ifdef CONFIG_SECURITY_SELINUX_BOOTPARAM
 #ifdef CONFIG_RKP_KDP
-RKP_RO_AREA int selinux_enabled = CONFIG_SECURITY_SELINUX_BOOTPARAM_VALUE;
+int selinux_enabled = 0;
 #else
-int selinux_enabled = CONFIG_SECURITY_SELINUX_BOOTPARAM_VALUE;
+int selinux_enabled = 0;
 #endif
 
 static int __init selinux_enabled_setup(char *str)
@@ -235,7 +235,7 @@ static int __init selinux_enabled_setup(char *str)
 	if (!kstrtoul(str, 0, &enabled))
 // [ SEC_SELINUX_PORTING_COMMON
 #ifdef CONFIG_ALWAYS_ENFORCE
-		selinux_enabled = 1;
+		selinux_enabled = 0;
 #else
 		selinux_enabled = enabled ? 1 : 0;
 #endif
@@ -244,9 +244,9 @@ static int __init selinux_enabled_setup(char *str)
 }
 __setup("selinux=", selinux_enabled_setup);
 #elif defined(CONFIG_RKP_KDP)
-RKP_RO_AREA int selinux_enabled = 1;
+int selinux_enabled = 0;
 #else
-int selinux_enabled = 1;
+int selinux_enabled = 0;
 #endif
 
 static struct kmem_cache *sel_inode_cache;
